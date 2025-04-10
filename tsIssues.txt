@@ -1,0 +1,44 @@
+💥 What’s actually happening
+You have:
+
+server.ts
+
+Defines startServer() and returnSocketIo()
+
+Calls startServer() at the bottom
+
+Exports returnSocketIo()
+
+todoController.ts
+
+Imports returnSocketIo() from server.ts
+
+Calls it immediately in the class constructor
+
+Constructor is called immediately via export default new Todo()
+
+app.ts
+
+Imports todoController.ts, which triggers everything in it
+
+So when app.ts is imported in server.ts...
+
+📦 Step-by-step execution
+server.ts is loaded
+
+It imports app.ts
+
+app.ts imports todoController.ts
+
+todoController.ts imports returnSocketIo() from server.ts
+
+Now server.ts is not fully done loading yet — io is still undefined because startServer() hasn't executed
+
+But returnSocketIo() is called anyway from todoController.ts
+
+💥 Boom! io is undefined → error
+
+This is a circular dependency problem:
+server.ts → app.ts → todoController.ts → server.ts
+...before startServer() runs.
+

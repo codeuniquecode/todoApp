@@ -1,0 +1,4 @@
+to see datas in cluster
+
+
+--databases-->cluster-->browse collections
