@@ -20,6 +20,9 @@ class Todo{
             socket.on('updateData', (data) => {
                 this.updateTodo(socket, data);
             });
+            socket.on('getData',()=>{
+                this.getTodo(socket);
+            })
             
 
         });
@@ -114,7 +117,31 @@ class Todo{
             });
         }
     }
-    
+    private async getTodo(socket:Socket){
+        try {
+            
+        // const {task, deadline, status} = data;
+        const datas = await todoModel.find();
+        if(!datas){
+            return socket.emit('responseError', {
+                status: "error",
+                message: "there are no datas"
+            });
+        }
+        socket.emit('updatedTodo', {
+            status: "success",
+            data: datas
+        });
+
+        } catch (error) {
+            console.error('❌ fetching error:', error);
+            socket.emit('responseError', {
+                status: "error",
+                message: `error in fetching data: ${error}`
+            });
+        }
+
+    }
 }
 export default new Todo();
 //here the todo constructor is exported because it will be automatically called after being imported in app.ts file
