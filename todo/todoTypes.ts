@@ -1,7 +1,7 @@
 // in typescript, interface must be defined first in types file
 export enum TodoStatus{
     pending='pending',
-    finished='finished'
+    completed='completed'
 }
 export interface iTodo{
     task:string,

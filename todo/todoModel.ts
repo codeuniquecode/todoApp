@@ -5,7 +5,7 @@ const todoSchema =new  mongoose.Schema({
     deadline:String,
     status:{
         type:String,
-        enum:[TodoStatus.finished,TodoStatus.pending],
+        enum:[TodoStatus.completed,TodoStatus.pending],
         default:TodoStatus.pending
     }
 });
