@@ -39,7 +39,9 @@ class Todo{
            deadline,
            status
        });
-       const allTodos = await todoModel.find();
+       const allTodos = await todoModel.find(
+        {status:'pending'}
+       );
        socket.emit('updatedTodo',{
         status:"success",
         data: allTodos});
@@ -73,7 +75,9 @@ class Todo{
             return;
         }
         //if deleted return all datas
-       const allTodos = await todoModel.find();
+        const allTodos = await todoModel.find(
+            {status:'pending'}
+           );
        socket.emit('updatedTodo',{
         status:"success",
         data: allTodos});
@@ -103,7 +107,9 @@ class Todo{
                 });
             }
     
-            const allTodos = await todoModel.find();
+            const allTodos = await todoModel.find(
+                {status:'pending'}
+               );
             socket.emit('updatedTodo', {
                 status: "success",
                 data: allTodos
@@ -121,8 +127,10 @@ class Todo{
         try {
             
         // const {task, deadline, status} = data;
-        const datas = await todoModel.find();
-        if(!datas){
+        const allTodos = await todoModel.find(
+            {status:'pending'}
+           );
+        if(!allTodos){
             return socket.emit('responseError', {
                 status: "error",
                 message: "there are no datas"
@@ -130,7 +138,7 @@ class Todo{
         }
         socket.emit('updatedTodo', {
             status: "success",
-            data: datas
+            data: allTodos
         });
 
         } catch (error) {
