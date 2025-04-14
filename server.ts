@@ -15,9 +15,10 @@ function startServer(){
     
     io = new Server(server);
     //reason in tsissue.txt file
-    import('../todo/todo/todoController').then(() => {
+    import('./todo/todoController').then(() => {
         console.log('TodoController loaded after Socket.IO was initialized');
       });
+      
   
 }
 function returnSocketIo() {
