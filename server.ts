@@ -1,7 +1,8 @@
-import app from '../todo/src/app';
+import app from './src/app';
 import connectDb from './src/dbConfig';
 import config from './src/envConfig';
 import { Server } from 'socket.io';
+
 const port = config.port;
 
 
